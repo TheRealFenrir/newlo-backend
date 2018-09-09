@@ -1,8 +1,53 @@
 var express = require('express');
 var router = express.Router();
 
+mmrQuery = [
+  'SELECT playerId, leagueElo FROM LeaguePlayer WHERE leagueId = 1 AND (playerId = ',
+  ' OR playerId = ',
+  ')'
+];
+
+calculateNewElos = function (scores, mmrs) {
+  const k = 128;
+  const spread = 1000;
+
+  mmrSum = mmrs[0] + mmrs[1];
+  scoreSum = scores[0] + scores[1];
+  normalizedScores = [
+    score[0] / scoreSum,
+    score[1] / scoreSum
+  ];
+  expectedScores = [
+    1.0 / ( 1.0 + 10.0 ** ( ( mmrSum - mmrs[0] - mmrs[0] ) / spread ) ),
+    1.0 / ( 1.0 + 10.0 ** ( ( mmrSum - mmrs[1] - mmrs[1] ) / spread ) )
+  ];
+  mmrChanges = [ k * ( normalizedScores[0] - expectedScores[0] ), k * ( normalizedScores[1] - expectedScores[1] ) ];
+  return mmrChanges;
+
+}
+
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/:t1Score/:t2Score', function(req, res, next) {
+  var playersCurrent;
+  res.locals.connection.query(mmrQuery[0] + req.params.id1 + mmrQuery[1] + id2 + mmrQuery[1] + id3 + mmrQuery[1] + id4 + mmrQuery[2], function (error, results, fields) {
+    if(error){
+      res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
+      //If there is error, we send the error in the error section with 500 status
+    } else {
+      // Get current MMRs
+      playersCurrent = results;
+    }
+  });
+
+  if (playersCurrent.length !== 4) {
+    res.send(JSON.stringify({"status": 500, "error": 'not enough players returned', "response": null})); 
+  }
+
+  var changes = calculateNewElos([req.params.t1Score, req.params.t2Score], [average(playersCurrent[0].leagueElo, playersCurrent[1].leagueElo), average(playersCurrent[2].leagueElo, playersCurrent[3].leagueElo)]);
+
+  'INSERT INTO Games ( player1Id, player2Id, player3Id, player4Id, scoreDifference, date, leagueId ) VALUES ( '%d, %d, %d, %d, %d, NOW( ), %d )
+
+  'INSERT INTO PlayerGames ( playerId, gameId, elo ) VALUES ( '%d', '%d', ' + (playersCurrent[0].leagueElo + changes[0]) + ' )'
   res.send('respond with a resource');
 });
 
