@@ -30,7 +30,8 @@ app.use(function(req, res, next){
 // REST API
 var indexRouter = require('./routes/index');
 var addGameRouter = require('./routes/addGameToLeague');
-var addPlayerRouter = require('./routes/addPlayerToLeague');
+var addPlayerRouter = require('./routes/addPlayer');
+var addPlayerToLeagueRouter = require('./routes/addPlayerToLeague');
 var getExpectedScoreRouter = require('./routes/getExpectedScore');
 var getHistoryRouter = require('./routes/getLeagueHistory');
 var getPlayerHistoryRouter = require('./routes/getPlayerHistory');
@@ -38,6 +39,7 @@ var getPlayersRouter = require('./routes/getPlayersInLeague');
 app.use('/', indexRouter);
 app.use('/addGame', addGameRouter);
 app.use('/addPlayer', addPlayerRouter);
+app.use('/addPlayerToLeague', addPlayerToLeagueRouter);
 app.use('/getExpectedScore', getExpectedScoreRouter);
 app.use('/getHistory', getHistoryRouter);
 app.use('/getPlayerHistory', getPlayerHistoryRouter);
