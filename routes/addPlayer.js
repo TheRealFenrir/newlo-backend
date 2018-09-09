@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const query = [
-  'INSERT INTO Players ( PlayerName ) VALUES ( ',
-  ' )'
+  'INSERT INTO Players ( PlayerName ) VALUES ( \'',
+  '\' )'
 ];
 
 /* GET users listing. */
