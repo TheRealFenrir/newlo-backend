@@ -23,7 +23,7 @@ app.use(function(req, res, next){
 		password : '',
 		database : 'elo'
 	});
-	res.locals.connect();
+	res.locals.connection.connect();
 	next();
 });
 

@@ -1,9 +1,9 @@
-import leagueId from '../public/javascripts/constants';
+// import leagueId from '../public/javascripts/constants';
 
 var express = require('express');
 var router = express.Router();
 
-const query = 'SELECT p.playerId, playerName, lp.leagueElo FROM Players p INNER JOIN LeaguePlayer lp ON lp.leagueId = ' + leagueId.toString() + ' AND lp.playerId = p.playerId ORDER BY lp.leagueElo DESC';
+const query = 'SELECT p.playerId, playerName, lp.leagueElo FROM Players p INNER JOIN LeaguePlayer lp ON lp.leagueId = ' + '1' + ' AND lp.playerId = p.playerId ORDER BY lp.leagueElo DESC';
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

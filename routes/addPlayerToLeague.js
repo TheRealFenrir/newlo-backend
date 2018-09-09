@@ -1,11 +1,11 @@
-import { leagueId, initialMmr } from '../public/javascripts/constants';
+// import { leagueId, initialMmr } from '../public/javascripts/constants';
 
 var express = require('express');
 var router = express.Router();
 
 const query = [
   'INSERT INTO LeaguePlayer ( playerId, leagueId, leagueElo ) VALUES ( \'', 
-  '\', \'' + leagueId.toString() + '\', ' + initialMmr.toString() + ' )'
+  '\', \'' + '1' + '\', ' + '1400' + ' )'
 ];
 
 /* GET users listing. */
