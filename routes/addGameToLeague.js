@@ -53,13 +53,12 @@ calculateNewElos = function (scores, mmrs) {
 /* GET users listing. */
 router.get('/:id1/:id2/:id3/:id4/:scoreDiff', function(req, res, next) {
   // Get current MMRs
-  var playersCurrent;
-  res.locals.connection.query(getMmrQuery(req.params.id1, req.params.id2, req.params.id3, req.params.id4), function (error, results, playersCurrent) {
+  var playersCurrent = res.locals.connection.query(getMmrQuery(req.params.id1, req.params.id2, req.params.id3, req.params.id4), function (error, results, fields) {
     if(error){
       res.send(JSON.stringify({"status": 500, "error": error, "response": null})); 
       return;
     } else {
-      playersCurrent = results;
+      return results;
     }
   });
 
