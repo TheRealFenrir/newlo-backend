@@ -63,7 +63,7 @@ router.get('/:id1/:id2/:id3/:id4/:scoreDiff', function(req, res, next) {
   });
 
   if (playersCurrent.lenth !== 4) {
-    res.send(JSON.stringify({"status": 500, "error": 'not enough players returned', "response": null})); 
+    res.send(JSON.stringify({"status": 500, "error": 'not enough players returned', "response": JSON.stringify(playersCurrent)})); 
     return;
   }
 
